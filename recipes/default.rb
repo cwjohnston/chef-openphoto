@@ -90,36 +90,6 @@ link ::File.join(node['openphoto']['install_dir'],'src','html','assets','cache')
   to ::File.join(node['openphoto']['data_dir'],'cache')
 end
 
-case node['openphoto']['http_flavor']
-when 'nginx'
-  include_recipe 'nginx'
-
-  template ::File.join(node['nginx']['dir'],'sites-available','openphoto.conf') do
-    source 'openphoto-nginx.conf.erb'
-    owner node['nginx']['user']
-    group node['nginx']['group']
-  end
-
-  nginx_site 'openphoto.conf'
-
-when 'apache','apache2'
-  include_recipe 'apache2'
-  include_recipe 'apache2::mod_php5'
-  include_recipe 'apache2::mod_rewrite'
-  include_recipe 'apache2::mod_deflate'
-  include_recipe 'apache2::mod_expires'
-  include_recipe 'apache2::mod_headers'
-
-  template ::File.join(node['apache']['dir'],'sites-available','openphoto.conf') do
-    source 'openphoto-apache2.conf.erb'
-    owner node['apache']['user']
-    group node['apache']['group']
-  end
-
-  apache_site 'openphoto.conf'
-  
-end
-
 case node['openphoto']['database_flavor']
 when 'mysql'
   include_recipe 'mysql::ruby'
