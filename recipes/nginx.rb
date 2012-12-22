@@ -18,6 +18,7 @@
 #
 
 include_recipe 'openphoto::default'
+include_recipe 'php-fpm'
 include_recipe 'nginx'
 
 template ::File.join(node['nginx']['dir'],'sites-available','openphoto.conf') do

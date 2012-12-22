@@ -50,8 +50,6 @@ php_pear 'oauth' do
   action :install
 end
 
-include_recipe 'php-fpm'
-  
 group node['openphoto']['group']
 
 user node['openphoto']['user'] do
